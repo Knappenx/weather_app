@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="{% static 'weather/index.css' %}" />
+        <script src="https://kit.fontawesome.com/9aa09d3396.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <h3>What's the weather like?</h3>
+            <div>
+                <a href=""> {{ form.user }}</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </header>
+
+        <div class="main-container">
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <form action="{% url 'index' %}" method="POST" class="form">
+                {% csrf_token %}
+                {{ form.name }}
+                <button type="submit">Add City</button>
+            </form>
+            <div class="weather-container">
+                {% for city in cities  %}
+                    <div class="card-container">
+                        <div class="weather-item-container">
+                            <img src="https://openweathermap.org/img/w/{{ city.weather.icon }}.png" />
+                            <div>
+                                <h3>{{ city.city.name }}</h3>
+                                <p>{{ city.weather.temperature }} C</p>
+                            </div>
+                        </div>
+                        <a class="button-fav" href="{% url 'favorite' city.city.id %}" ><i class="{% if city.city.favorite  %}fas{% else %}far{% endif %} fa-star"></i></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="pagination">
+                <div class="step-links">
+                    {% for page in pages %}
+                        <a class="{% if paginator.number == page %}active{% endif %}" href="{% url 'index' %}?page={{ page }}">{{ page }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

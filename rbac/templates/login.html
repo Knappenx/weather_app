@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'rbac/login.css' %}" />
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h3>Weather Login</h3>
+        </header>
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="error">{{ field }}: {{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+        <button type="submit">Login</button>
+        </form>
+        <a class="create-account" href="{% url 'signup' %}"><p>Create an account</p></a>
+    </div>
+</body>
+</html>

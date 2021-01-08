@@ -1,0 +1,18 @@
+
+# Proposals
+
+X # Link to register user from login page
+X # Show username logged in the app
+X # When trying to access to the app and user is not logged in, it should take to /rbac/login
+X # Validate password(errors) for login page
+X? # Add tests for rbac module
+# When clicking the username, it should take to the user profile. In which you be able to update user profile information
+
+Extra:
+1/2 X # Style for register and login form
+# Logout styles
+
+To do in class:
+# Search for city in home page
+# Pagination of cities
+# Cache for cities
